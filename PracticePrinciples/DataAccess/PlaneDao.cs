@@ -20,23 +20,20 @@ namespace PracticePrinciples.DataAccess
 
         public Plane GetById(int id)
         {
-            foreach (var item in planes)
-            {
-                if(item.Id == id)
-                {
-                    return item;
-                }
-            }
-            return null;
+            var plane = planes.Single(t => t.Id == id);
+
+            return plane;
         }
 
-        public List<Plane> ListVehicles()
+        public ICollection<Plane> GetAll()
         {
             return planes;
         }
 
-        public void Sell(Plane vehicle)
+        public void Delete(Plane vehicle)
         {
+
+
             planes.Remove(vehicle);    
         }
     }

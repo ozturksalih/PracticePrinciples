@@ -22,22 +22,17 @@ namespace PracticePrinciples.DataAccess
 
         public Truck GetById(int id)
         {
-            foreach (var item in trucks)
-            {
-                if(item.Id == id)
-                {
-                    return item;
-                }
-            }
-            return null;
+            var truck = trucks.Single(t => t.Id == id);
+
+            return truck;
         }
 
-        public List<Truck> ListVehicles()
+        public ICollection<Truck> GetAll()
         {
             return trucks;
         }
 
-        public void Sell(Truck vehicle)
+        public void Delete(Truck vehicle)
         {
             trucks.Remove(vehicle);    
         }

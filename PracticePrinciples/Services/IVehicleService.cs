@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PracticePrinciples.DataAccess
+namespace PracticePrinciples.Services
 {
-    public interface IVehicleDao<T>
+    public interface IVehicleService<T>
     {
-        void Add(T vehicle);
-        void Delete(T vehicle);
+        void Add(T t);
         ICollection<T> GetAll();
+
         T GetById(int id);
+        void Sell(T t);
     }
 }

@@ -23,14 +23,9 @@ namespace PracticePrinciples.DataAccess
 
         public Car GetById(int id)
         {
-            foreach (var item in cars)
-            {
-                if(item.Id == id)
-                {
-                    return (Car)item;
-                }
-            }
-            return null;
+            var car = cars.Single(t => t.Id == id);
+
+            return car;
         }
 
         //public IEnumerable<Car> GroupByColour()
@@ -48,13 +43,13 @@ namespace PracticePrinciples.DataAccess
         //    }
         //}
 
-        public List<Car> ListVehicles()
+        public ICollection<Car> GetAll()
         {
             return cars;
         }
 
 
-        public void Sell(Car vehicle)
+        public void Delete(Car vehicle)
         {
             cars.Remove((Car)vehicle);
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PracticePrinciples.DataAccess;
 using PracticePrinciples.Entities;
+using PracticePrinciples.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,36 +14,36 @@ namespace PracticePrinciples.Controllers
     [ApiController]
     public class TrucksController : ControllerBase
     {
-        private ITruckDao _truckDao;
-        public TrucksController(ITruckDao iTruckDao)
+        private ITruckService _truckService;
+        public TrucksController(ITruckService iTruckService)
         {
-            _truckDao = iTruckDao;
+            _truckService = iTruckService;
         }
 
         [HttpGet]
         public IEnumerable<Truck> Get()
         {
-            return _truckDao.ListVehicles();    
+            return _truckService.GetAll();    
         }
 
         // GET api/<TrucksController>/5
         [HttpGet("{id}")]
         public Truck Get(int id)
         {
-            return _truckDao.GetById(id);
+            return _truckService.GetById(id);
         }
 
         [HttpPost]
         public void Post([FromBody] Truck truck)
         {
-            _truckDao.Add(truck);
+            _truckService.Add(truck);
         }
 
       
         [HttpDelete]
-        public void Delete(Truck truck)
+        public void Sell(Truck truck)
         {
-            _truckDao.Sell(truck);
+            _truckService.Sell(truck);
         }
     }
 }

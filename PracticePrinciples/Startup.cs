@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PracticePrinciples.DataAccess;
+using PracticePrinciples.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,10 @@ namespace PracticePrinciples
             services.AddSingleton<ICarDao, CarDao>();
             services.AddSingleton<IPlaneDao, PlaneDao>();
             services.AddSingleton<ITruckDao, TruckDao>();
+            services.AddTransient<ICarService, CarManager>()
+                    .AddTransient<IPlaneService, PlaneManager>()
+                    .AddTransient<ITruckService, TruckManager>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PracticePrinciples", Version = "v1" });
