@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.DataAccess
 {
-    public class CarDao : DataAccessBase ,ICarDao
+    public class CarDao : DataAccessBase ,ICarDao , IReportDao
     {
 
         private readonly DbContext _dbContext;
@@ -54,6 +54,11 @@ namespace PracticePrinciples.DataAccess
         {
             var car = _dbContext.Cars.Single(c => c.Id ==id);
             _dbContext.Cars.Remove(car);
+        }
+
+        public int GetTotalPower()
+        {
+            return _dbContext.Cars.Sum(c => c.Power);
         }
     }
 }

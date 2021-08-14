@@ -8,15 +8,23 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.Controllers
 {
+    using Services;
     [Route("api/[controller]")]
     [ApiController]
     public class VehiclesController : ControllerBase
     {
-        // GET: api/<VehiclesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        
+        private readonly IReportService _reportService;
+
+        public VehiclesController(IReportService reportService)
         {
-            return new string[] { "value1", "value2" };
+            _reportService = reportService;
+        }
+
+        [HttpGet]
+        public IActionResult GetTotalPower()
+        {
+            return Ok(_reportService.GetTotalPower());
         }
 
         // GET api/<VehiclesController>/5

@@ -35,8 +35,18 @@ namespace PracticePrinciples.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] Truck truck)
+        public void Post([FromBody] TruckRequest truckReq)
         {
+            var truck = new Truck
+            {
+                Brand = truckReq.Brand,
+                Colour = truckReq.Colour,
+                NumberOfWheels = truckReq.NumberOfWheels,
+                PassengerCapacity = truckReq.PassengerCapacity,
+                Power = truckReq.Power,
+                TrailerType = truckReq.TrailerType,
+                TransmissionType = truckReq.TransmissionType
+            };
             _truckService.Add(truck);
         }
 

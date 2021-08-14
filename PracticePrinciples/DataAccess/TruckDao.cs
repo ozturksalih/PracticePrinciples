@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.DataAccess
 {
-    public class TruckDao : DataAccessBase, ITruckDao
+    public class TruckDao : DataAccessBase, ITruckDao , IReportDao
     {
         private readonly DbContext _dbContext;
         public TruckDao(DbContext dbContext)
@@ -37,6 +37,11 @@ namespace PracticePrinciples.DataAccess
         {
             var truck = _dbContext.Trucks.Single(t => t.Id == id);
             _dbContext.Trucks.Remove(truck);    
+        }
+
+        public int GetTotalPower()
+        {
+            return _dbContext.Trucks.Sum(t => t.Power);
         }
     }
 }

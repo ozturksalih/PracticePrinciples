@@ -37,6 +37,10 @@ namespace PracticePrinciples
                     .AddTransient<ICarDao,CarDao>()
                     .AddTransient<IPlaneDao,PlaneDao>()
                     .AddTransient<ITruckDao,TruckDao>()
+                    .AddTransient<IReportDao , CarDao>()
+                    .AddTransient<IReportDao,TruckDao>()
+                    .AddTransient<IReportDao,PlaneDao>()
+                    .AddTransient<IReportService,ReportManager>()
                     .AddSingleton<DbContext>();
             
             services.AddSwaggerGen(c =>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.DataAccess
 {
-    public class PlaneDao : DataAccessBase,IPlaneDao
+    public class PlaneDao : DataAccessBase,IPlaneDao , IReportDao
     {
         private readonly DbContext _dbContext;
         public PlaneDao(DbContext dbContext)
@@ -38,6 +38,11 @@ namespace PracticePrinciples.DataAccess
             var plane = _dbContext.Planes.Single(p => p.Id == id);
 
             _dbContext.Planes.Remove(plane);
+        }
+
+        public int GetTotalPower()
+        {
+            return _dbContext.Planes.Sum(p => p.Power);
         }
     }
 }
