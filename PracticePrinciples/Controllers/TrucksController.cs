@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PracticePrinciples.DataAccess;
+using PracticePrinciples.DbModels;
 using PracticePrinciples.Entities;
 using PracticePrinciples.Services;
 using System;
@@ -14,7 +15,7 @@ namespace PracticePrinciples.Controllers
     [ApiController]
     public class TrucksController : ControllerBase
     {
-        private ITruckService _truckService;
+        private readonly ITruckService _truckService;
         public TrucksController(ITruckService iTruckService)
         {
             _truckService = iTruckService;
@@ -41,9 +42,9 @@ namespace PracticePrinciples.Controllers
 
       
         [HttpDelete]
-        public void Sell(Truck truck)
+        public void Sell(int id)
         {
-            _truckService.Sell(truck);
+            _truckService.Sell(id);
         }
     }
 }

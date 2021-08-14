@@ -30,12 +30,14 @@ namespace PracticePrinciples
         {
 
             services.AddControllers();
-            services.AddSingleton<ICarDao, CarDao>();
-            services.AddSingleton<IPlaneDao, PlaneDao>();
-            services.AddSingleton<ITruckDao, TruckDao>();
+       
             services.AddTransient<ICarService, CarManager>()
                     .AddTransient<IPlaneService, PlaneManager>()
-                    .AddTransient<ITruckService, TruckManager>();
+                    .AddTransient<ITruckService, TruckManager>()
+                    .AddTransient<ICarDao,CarDao>()
+                    .AddTransient<IPlaneDao,PlaneDao>()
+                    .AddTransient<ITruckDao,TruckDao>()
+                    .AddSingleton<DbContext>();
             
             services.AddSwaggerGen(c =>
             {
