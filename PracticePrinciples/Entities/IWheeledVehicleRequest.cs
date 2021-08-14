@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.Entities
 {
-    interface IWheeledVehicle :IVehicle
+    public interface IWheeledVehicleRequest : IVehicleRequest
     {
-        public string TransmissionType { get; set; }
     }
 }

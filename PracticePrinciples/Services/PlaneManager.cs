@@ -1,4 +1,5 @@
 ﻿using PracticePrinciples.DataAccess;
+using PracticePrinciples.DbModels;
 using PracticePrinciples.Entities;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,9 @@ namespace PracticePrinciples.Services
             return _planeDao.GetById(id);
         }
 
-        public void Sell(Plane plane)
+        public void Sell(int id)
         {
-            _planeDao.Delete(plane);
+            _planeDao.Delete(id);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using PracticePrinciples.Entities;
+﻿using PracticePrinciples.DbModels;
+using PracticePrinciples.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,35 +7,37 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.DataAccess
 {
-    public class PlaneDao : IPlaneDao
+    public class PlaneDao : DataAccessBase,IPlaneDao
     {
+        private readonly DbContext _dbContext;
+        public PlaneDao(DbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
-        private readonly List<Plane> planes = new()
+        public void Add(Plane plane)
         {
-            new Plane {Id=4,Brand="Boeing",Colour="White",EngineType="Pervaneli",PassengerCapacity=150,Power=25550,WingSpan=10 },
-            new Plane { Id = 5, Brand = "Boeing", Colour = "Blue", EngineType = "Pervanesiz", PassengerCapacity = 25, Power = 25550, WingSpan = 7 }        };
-        public void Add(Plane vehicle)
-        {
-            planes.Add(vehicle);
+            plane.Id = GenerateId(_dbContext.Planes.Select(p => p.Id));
+            _dbContext.Planes.Add(plane);
         }
 
         public Plane GetById(int id)
         {
-            var plane = planes.Single(t => t.Id == id);
+            var plane = _dbContext.Planes.Single(t => t.Id == id);
 
             return plane;
         }
 
         public ICollection<Plane> GetAll()
         {
-            return planes;
+            return _dbContext.Planes;
         }
 
-        public void Delete(Plane vehicle)
+        public void Delete(int id)
         {
+            var plane = _dbContext.Planes.Single(p => p.Id == id);
 
-
-            planes.Remove(vehicle);    
+            _dbContext.Planes.Remove(plane);
         }
     }
 }

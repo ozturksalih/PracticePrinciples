@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PracticePrinciples.DataAccess;
+using PracticePrinciples.DbModels;
 using PracticePrinciples.Entities;
 using PracticePrinciples.Services;
 using System;
@@ -22,29 +23,40 @@ namespace PracticePrinciples.Controllers
         }
         // GET: api/<PlanesController>
         [HttpGet]
-        public IEnumerable<Plane> GetAll()
+        public IActionResult GetAll()
         {
-            return _planeService.GetAll();
+            return Ok(_planeService.GetAll());
         }
 
         // GET api/<PlanesController>/5
         [HttpGet("{id}")]
-        public Plane Get(int id)
+        public IActionResult Get(int id)
         {
-            return _planeService.GetById(id);
+            return Ok(_planeService.GetById(id));
         }
 
         // POST api/<PlanesController>
         [HttpPost]
-        public void Post([FromBody] Plane plane)
+        public IActionResult Post([FromBody] PlaneRequest request)
         {
+            var plane = new Plane
+            {
+                Brand = request.Brand,
+                Colour = request.Colour,
+                EngineType = request.EngineType,
+                PassengerCapacity = request.PassengerCapacity,
+                Power = request.Power,
+                WingSpan = request.WingSpan
+            };
             _planeService.Add(plane);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
-        public void Sell(Plane plane)
+        public IActionResult Sell(int id)
         {
-            _planeService.Sell(plane);
+            _planeService.Sell(id);
+            return Ok();
         }
     }
 }

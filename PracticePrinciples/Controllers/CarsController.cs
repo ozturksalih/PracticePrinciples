@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PracticePrinciples.DataAccess;
+using PracticePrinciples.DbModels;
 using PracticePrinciples.Entities;
 using PracticePrinciples.Services;
 using System;
@@ -21,27 +22,36 @@ namespace PracticePrinciples.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Car> GetAll()
+        public IActionResult GetAll()
         {
-            return _carService.GetAll();
+            return Ok(_carService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public Car GetById(int id)
+        public IActionResult GetById(int id)
         {
-            return _carService.GetById(id);
+            return Ok(_carService.GetById(id));
         }
 
         [HttpPost]
-        public void Post([FromBody] Car car)
+        public void Post([FromBody] CarRequest request)
         {
+            var car = new Car
+            {
+                Brand = request.Brand,
+                Colour = request.Colour,
+                PassengerCapacity = request.PassengerCapacity,
+                Power = request.Power,
+                TransmissionType = request.TransmissionType
+            };
             _carService.Add(car);
         }
 
         [HttpDelete]
-        public void Sell([FromBody]Car car)
+        public IActionResult Sell(int id)
         {
-            _carService.Sell(car);
+            _carService.Sell(id);
+            return Ok();
         }
     }
 }

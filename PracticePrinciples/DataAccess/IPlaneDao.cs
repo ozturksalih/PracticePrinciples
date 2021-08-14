@@ -2,6 +2,7 @@
 using System.Linq;
 using PracticePrinciples.Entities;
 using System.Threading.Tasks;
+using PracticePrinciples.DbModels;
 
 namespace PracticePrinciples.DataAccess
 {

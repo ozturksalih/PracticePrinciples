@@ -1,4 +1,5 @@
-﻿using PracticePrinciples.Entities;
+﻿using PracticePrinciples.DbModels;
+using PracticePrinciples.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.DataAccess
 {
-    public class CarDao :ICarDao
+    public class CarDao : DataAccessBase ,ICarDao
     {
 
-        private readonly List<Car> cars = new()
+        private readonly DbContext _dbContext;
+
+        public CarDao(DbContext dbContext)
         {
-            new Car { Id= 1, Brand = "Volkswagen" , Colour = "Red" , PassengerCapacity = 5 , Power = 150,TransmissionType="Automatic"},
-            new Car { Id = 2, Brand = "Toyota", Colour = "Blue", PassengerCapacity = 10, Power = 100, TransmissionType = "Manuel" },
-            new Car { Id = 3, Brand = "Tesla", Colour = "White", PassengerCapacity = 7, Power = 550, TransmissionType = "Automatic" }
-        };
-        public void Add(Car vehicle)
+            _dbContext = dbContext;
+        }
+        public void Add(Car car)
         {
-            cars.Add((Car)vehicle);
-            
+            car.Id = GenerateId(_dbContext.Cars.Select(c => c.Id));
+            _dbContext.Cars.Add(car);
         }
 
         public Car GetById(int id)
         {
-            var car = cars.Single(t => t.Id == id);
+            var car = _dbContext.Cars.Single(t => t.Id == id);
 
             return car;
         }
@@ -45,13 +46,14 @@ namespace PracticePrinciples.DataAccess
 
         public ICollection<Car> GetAll()
         {
-            return cars;
+            return _dbContext.Cars;
         }
 
 
-        public void Delete(Car vehicle)
+        public void Delete(int id)
         {
-            cars.Remove((Car)vehicle);
+            var car = _dbContext.Cars.Single(c => c.Id ==id);
+            _dbContext.Cars.Remove(car);
         }
     }
 }

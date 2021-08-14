@@ -11,6 +11,6 @@ namespace PracticePrinciples.Services
         ICollection<T> GetAll();
 
         T GetById(int id);
-        void Sell(T t);
+        void Sell(int id);
     }
 }

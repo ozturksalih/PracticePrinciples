@@ -1,4 +1,5 @@
 ﻿using PracticePrinciples.DataAccess;
+using PracticePrinciples.DbModels;
 using PracticePrinciples.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,9 @@ namespace PracticePrinciples.Services
             _carDao.Add(car);
         }
 
-        public void Sell(Car t)
+        public void Sell(int id)
         {
-            
+            _carDao.Delete(id);
         }
 
         public ICollection<Car> GetAll()
@@ -31,9 +32,8 @@ namespace PracticePrinciples.Services
         }
 
         public Car GetById(int id)
-        {
-            var car = _carDao.GetById(id);
-            return car;
+        { 
+            return _carDao.GetById(id);
         }
     }
 }

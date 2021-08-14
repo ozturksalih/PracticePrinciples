@@ -1,4 +1,5 @@
 ﻿using PracticePrinciples.DataAccess;
+using PracticePrinciples.DbModels;
 using PracticePrinciples.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,9 @@ namespace PracticePrinciples.Services
             return _truckDao.GetById(id);
         }
 
-        public void Sell(Truck truck)
+        public void Sell(int id)
         {
-            _truckDao.Delete(truck);
+            _truckDao.Delete(id);
         }
     }
 }

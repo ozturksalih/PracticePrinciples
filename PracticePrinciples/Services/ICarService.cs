@@ -1,7 +1,7 @@
 ﻿
 namespace PracticePrinciples.Services
 {
-    using Entities;
+    using DbModels;
     public interface ICarService : IVehicleService<Car>
     {
     }

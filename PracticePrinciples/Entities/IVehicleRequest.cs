@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.Entities
 {
-    public interface IVehicle
+    public interface IVehicleRequest
     {
-        public int Id { get; set; }
         public string Brand { get; set; }
         public string Colour { get; set; }
         public int Power { get; set; }
