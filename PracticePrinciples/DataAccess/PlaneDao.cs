@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PracticePrinciples.DataAccess
 {
-    public class PlaneDao : DataAccessBase,IPlaneDao , IReportDao
+    public class PlaneDao : DataAccessBase, IPlaneDao, IReportDao
     {
         private readonly DbContext _dbContext;
         public PlaneDao(DbContext dbContext)
@@ -43,6 +43,22 @@ namespace PracticePrinciples.DataAccess
         public int GetTotalPower()
         {
             return _dbContext.Planes.Sum(p => p.Power);
+        }
+
+        public IDictionary<string, int> GetByColours()
+        {
+            var result = new Dictionary<string, int>();
+
+            var groupByColour = _dbContext
+                .Planes
+                .GroupBy(c => c.Colour)
+                .Select(c => new { Key = c.Key, Value = c.Count() });
+            foreach (var item in groupByColour)
+            {
+                result.Add(item.Key, item.Value);
+            }
+            return result;
+
         }
     }
 }

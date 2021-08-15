@@ -13,6 +13,32 @@ namespace PracticePrinciples.Services
         {
             _reportDaos = reportDaos;
         }
+
+        public IDictionary<string, int> GetByColour()
+        {
+            var result = new Dictionary<string, int>();
+            foreach (var dao in _reportDaos)
+            {
+                var colourNumbers = dao.GetByColours();
+                if(colourNumbers == null || colourNumbers.Count == 0)
+                {
+                    continue;
+                }
+                foreach (var item in colourNumbers)
+                {
+                    if (result.TryGetValue(item.Key, out var value))
+                    {
+                        result[item.Key] += item.Value;
+                    }
+                    else
+                    {
+                        result.Add(item.Key, item.Value);
+                    }
+                }
+            }
+            return result;
+        }
+
         public int GetTotalPower()
         {
             var totalPower = 0;

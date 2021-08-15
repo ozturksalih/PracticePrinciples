@@ -9,5 +9,6 @@ namespace PracticePrinciples.Services
     public interface IReportService
     {
         int GetTotalPower();
+        IDictionary<string,int> GetByColour();
     }
 }

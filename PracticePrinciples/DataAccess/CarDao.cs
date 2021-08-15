@@ -60,5 +60,20 @@ namespace PracticePrinciples.DataAccess
         {
             return _dbContext.Cars.Sum(c => c.Power);
         }
+
+        public IDictionary<string, int> GetByColours()
+        {
+            var result = new Dictionary<string, int>();
+
+            var groupByColour = _dbContext
+                .Cars
+                .GroupBy(c => c.Colour)
+                .Select(c => new { Key = c.Key, Value = c.Count() });
+            foreach (var item in groupByColour)
+            {
+                result.Add(item.Key, item.Value);
+            }
+            return result;
+        }
     }
 }

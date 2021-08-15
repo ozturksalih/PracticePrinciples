@@ -22,31 +22,35 @@ namespace PracticePrinciples.Controllers
         }
 
         [HttpGet]
+        [Route("get-total-power")]
         public IActionResult GetTotalPower()
         {
             return Ok(_reportService.GetTotalPower());
         }
 
-        // GET api/<VehiclesController>/5
+        [HttpGet]
+        [Route("get-colours")]
+        public IActionResult GetByColour()
+        {
+            return Ok(_reportService.GetByColour());
+        }
+
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<VehiclesController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<VehiclesController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<VehiclesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

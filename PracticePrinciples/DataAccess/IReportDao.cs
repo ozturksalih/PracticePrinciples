@@ -8,5 +8,6 @@ namespace PracticePrinciples.DataAccess
     public interface IReportDao
     {
         int GetTotalPower();
+        IDictionary<string, int> GetByColours();
     }
 }
